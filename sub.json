@@ -1,0 +1,9 @@
+{
+  "profile-title": "SecureVPN (тест)",
+  "profile-update-interval": 1,
+  "expire": 1749999999,
+  "servers": [
+    "vless://2a422680-41cb-4e87-91c0-8dfddf4e0795@nl.nazuvault.xyz:443?flow=xtls-rprx-vision&encryption=none&security=reality&fp=randomized&pbk=snieKh8nm9WFfypOrSXzjCP9-V7iPsyjdYtVQc-GfBQ&sid=f8123a&spx=/RtSNppYw6grvQEP&type=tcp&headerType=none&host=nl.nazuvault.xyz#🇳🇱 Нидерланды",
+    "vless://2a422680-41cb-4e87-91c0-8dfddf4e0795@ru.nazuvault.xyz:443?flow=xtls-rprx-vision&encryption=none&security=reality&fp=randomized&pbk=cLnw6rpiA4Oj4SYWnsDz5pgIwqht_B4qy7Mjy9yHiiM&sid=5b4640429b6f&spx=/vG3CWD45Lxq4sgY&type=tcp&headerType=none&host=ru.nazuvault.xyz#🇷🇺 Россия (обход)"
+  ]
+}
