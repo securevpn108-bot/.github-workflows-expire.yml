@@ -1,0 +1,40 @@
+name: Auto-Expire Subscription
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Каждые 5 минут
+  workflow_dispatch:
+
+jobs:
+  check-expire:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check and update subscription
+        run: |
+          CURRENT_TIME=$(date +%s)
+          EXPIRE_TIME=$(jq '.expire' sub.json)
+
+          if [ $CURRENT_TIME -gt $EXPIRE_TIME ]; then
+            echo "Subscription expired. Updating..."
+            cat > sub.json << 'EOF'
+          {
+            "profile-title": "SecureVPN (ПРОДЛИТЕ ПОДПИСКУ)",
+            "profile-update-interval": 12,
+            "expire": 1767148800,
+            "servers": [
+              "vless://00000000-0000-0000-0000-000000000000@0.0.0.0:0?flow=xtls-rprx-vision&encryption=none&security=reality&fp=randomized&pbk=00000000000000000000000000000000000000000000&sid=0000000000000000&type=tcp&headerType=none&host=example.com#⛔️ Продлите подписку в @SecureDaVpn",
+              "vless://00000000-0000-0000-0000-000000000000@0.0.0.0:0?flow=xtls-rprx-vision&encryption=none&security=reality&fp=randomized&pbk=00000000000000000000000000000000000000000000&sid=0000000000000000&type=tcp&headerType=none&host=example.com#⛔️ Продлите подписку в @SecureDaVpn"
+            ]
+          }
+          EOF
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git add sub.json
+            git commit -m "Subscription expired - replaced with renewal notice"
+            git push
+          else
+            echo "Subscription still active. Expires at: $(date -d @$EXPIRE_TIME)"
+          fi
